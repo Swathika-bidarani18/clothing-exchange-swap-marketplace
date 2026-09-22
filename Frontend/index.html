@@ -3,135 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoopWear - Swap. Reuse. Repeat.</title>
+
+    <title>LoopWear — Clothes in Circulation</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header>
-        <h1>LoopWear</h1>
-        <p>Swap. Reuse. Repeat.</p>
+    <!-- ================= NAVIGATION ================= -->
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="#">Browse Clothes</a>
-            <a href="#">How It Works</a>
-            <a href="#">Login</a>
-            <a href="#">Register</a>
-        </nav>
+    <header class="site-header">
+        <div class="nav-container">
+
+            <a href="index.html" class="logo">
+                Loop<span>Wear</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="#browse">Browse Clothes</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#nearby">Nearby Loops</a>
+                <a href="dashboard.html">My Loop</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="login.html" class="login-link">Login</a>
+                <a href="register.html" class="start-loop-btn">Start a Loop</a>
+            </div>
+
+        </div>
     </header>
 
 
-    <!-- Hero Section -->
+    <!-- ================= HERO ================= -->
+
     <main>
 
-        <section>
-            <h2>Give Your Clothes a New Loop</h2>
+        <section class="hero-section" id="heroSection">
 
-            <p>
-                Swap clothes with people around you,
-                discover new styles, and give your wardrobe
-                a second life.
+            <div class="hero-content">
+
+                <p class="eyebrow">LOOPWEAR / CLOTHING EXCHANGE</p>
+
+                <h1>
+                    Clothes<br>
+                    <em>in circulation.</em>
+                </h1>
+
+                <p class="hero-description">
+                    Give clothes a new story. Discover pieces nearby,
+                    exchange what you no longer wear, and keep good clothes moving.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#browse" class="primary-btn">
+                        Explore the Loop
+                    </a>
+
+                    <a href="register.html" class="secondary-btn">
+                        Start a Loop
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- ORBITAL CLOTHING DISPLAY -->
+
+            <div class="orbit-area">
+
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+
+                <div class="orbit-center">
+                    <span>LOOP</span>
+                    <strong>↻</strong>
+                </div>
+
+                <a href="item-details.html?item=1" class="orbit-item orbit-item-one">
+                    <img src="images/white T-Shirt.jpg" alt="White T-Shirt">
+                </a>
+
+                <a href="item-details.html?item=2" class="orbit-item orbit-item-two">
+                    <img src="images/Floral summer dress.jpg" alt="Floral Summer Dress">
+                </a>
+
+                <a href="item-details.html?item=3" class="orbit-item orbit-item-three">
+                    <img src="images/Denim jeans.jpg" alt="Denim Jeans">
+                </a>
+
+                <a href="item-details.html?item=4" class="orbit-item orbit-item-four">
+                    <img src="images/White sneakers.jpg" alt="White Sneakers">
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= INTRO STRIP ================= -->
+
+        <section class="intro-strip">
+
+            <div class="intro-number">01</div>
+
+            <div class="intro-text">
+                <p class="section-label">THE IDEA</p>
+
+                <h2>
+                    Good clothes<br>
+                    shouldn't have <em>one life.</em>
+                </h2>
+            </div>
+
+            <p class="intro-description">
+                LoopWear connects people who want to exchange clothes
+                instead of letting wearable pieces sit unused.
+                One closet becomes another person's discovery.
             </p>
 
-            <a href="#">Start Swapping</a>
-            <a href="#">Browse Clothes</a>
         </section>
 
 
-        <!-- Categories -->
-        <section>
-            <h2>Browse Categories</h2>
+        <!-- ================= BROWSE ================= -->
 
-            <div>
-                <h3>Tops</h3>
-                <p>Find shirts, t-shirts and more.</p>
+        <section class="browse-section" id="browse">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="section-label">02 / DISCOVER</p>
+
+                    <h2>
+                        Find your next<br>
+                        <em>favorite thing.</em>
+                    </h2>
+                </div>
+
+                <p class="heading-description">
+                    Browse pieces shared by people in the LoopWear community.
+                </p>
+
             </div>
 
-            <div>
-                <h3>Dresses</h3>
-                <p>Discover dresses for every occasion.</p>
+
+            <!-- SEARCH + FILTER -->
+
+            <div class="browse-controls">
+
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search clothes..."
+                    >
+                </div>
+
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="T-Shirts">T-Shirts</option>
+                    <option value="Dresses">Dresses</option>
+                    <option value="Jeans">Jeans</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Shirts">Shirts</option>
+                </select>
+
             </div>
 
-            <div>
-                <h3>Jeans</h3>
-                <p>Swap your favourite denim.</p>
+
+            <!-- CLOTHING GRID -->
+
+            <div class="clothing-grid" id="clothingGrid">
+
+    <!-- Clothing cards will be loaded from MongoDB by JavaScript -->
+
+</div>
+
+<p
+    id="noResults"
+    style="
+        display: none;
+        text-align: center;
+        margin: 40px 0;
+        font-size: 16px;
+    "
+>
+    No clothing items found.
+</p>
+
+<div class="browse-footer">
+    <span id="browseCount">Loading pieces...</span>
+
+    <a href="#browse">
+        View all pieces →
+    </a>
+</div>
+
+
+        <!-- ================= HOW IT WORKS ================= -->
+
+        <section class="journey-section" id="how-it-works">
+
+            <div class="journey-header">
+
+                <p class="section-label">03 / THE LOOP</p>
+
+                <h2>
+                    From your closet<br>
+                    <em>to someone else's.</em>
+                </h2>
+
             </div>
 
-            <div>
-                <h3>Shoes</h3>
-                <p>Give your shoes a new home.</p>
+
+            <div class="journey-line">
+
+                <div class="journey-step">
+
+                    <span class="step-number">01</span>
+
+                    <h3>LIST</h3>
+
+                    <p>
+                        Add clothes you no longer wear
+                        and give them a second chance.
+                    </p>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <span class="step-number">02</span>
+
+                    <h3>MATCH</h3>
+
+                    <p>
+                        Discover pieces that fit your style,
+                        size and nearby location.
+                    </p>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <span class="step-number">03</span>
+
+                    <h3>SWAP</h3>
+
+                    <p>
+                        Send a swap request and connect
+                        with another LoopWear member.
+                    </p>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <span class="step-number">04</span>
+
+                    <h3>REPEAT</h3>
+
+                    <p>
+                        Keep good clothes moving
+                        through the community.
+                    </p>
+
+                </div>
+
             </div>
+
         </section>
 
 
-        <!-- Featured Items -->
-        <section>
-            <h2>Featured Clothing</h2>
+        <!-- ================= NEARBY LOOPS ================= -->
 
-            <article>
-                <h3>Denim Jacket</h3>
-                <p>Size: M</p>
-                <p>Condition: Excellent</p>
-                <p>Estimated Swap Value: ₹1,200</p>
-                <a href="#">View Item</a>
-            </article>
+        <!-- ================= NEARBY LOOPS ================= -->
 
-            <article>
-                <h3>Floral Dress</h3>
-                <p>Size: S</p>
-                <p>Condition: Good</p>
-                <p>Estimated Swap Value: ₹900</p>
-                <a href="#">View Item</a>
-            </article>
+<section class="nearby-section" id="nearby">
 
-            <article>
-                <h3>White Sneakers</h3>
-                <p>Size: 7</p>
-                <p>Condition: Excellent</p>
-                <p>Estimated Swap Value: ₹1,500</p>
-                <a href="#">View Item</a>
-            </article>
+    <div class="nearby-content">
+
+        <p class="section-label">04 / NEARBY LOOPS</p>
+
+        <h2>
+            Your next swap<br>
+            could be <em>closer.</em>
+        </h2>
+
+        <p id="nearbyDescription">
+            Discover clothing from people
+            around your area.
+            Less distance. More possibilities.
+        </p>
+
+        <p
+            id="nearbyLocation"
+            class="nearby-location"
+        >
+            Finding nearby loops...
+        </p>
+
+        <a
+            href="#browse"
+            class="outline-btn"
+            id="nearbyBrowseBtn"
+        >
+            Browse Nearby Clothes →
+        </a>
+
+    </div>
+
+
+    <div
+        class="nearby-items"
+        id="nearbyItems"
+    >
+
+        <div class="nearby-loading">
+            <span>⌖</span>
+            <p>Finding clothing near you...</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+        <!-- ================= DARK STATEMENT ================= -->
+
+        <section class="statement-section">
+
+            <div class="statement-mark">↻</div>
+
+            <p class="section-label">LOOPWEAR PHILOSOPHY</p>
+
+            <h2>
+                Good clothes<br>
+                <em>keep moving.</em>
+            </h2>
+
+            <p>
+                Wear it. Share it. Swap it.
+                Start another loop.
+            </p>
+
         </section>
 
 
-        <!-- How It Works -->
-        <section>
-            <h2>How LoopWear Works</h2>
+        <!-- ================= FINAL CTA ================= -->
 
-            <ol>
-                <li>
-                    <h3>List</h3>
-                    <p>Upload clothes you no longer use.</p>
-                </li>
+        <section class="final-cta">
 
-                <li>
-                    <h3>Discover</h3>
-                    <p>Browse clothes listed by other users.</p>
-                </li>
+            <p class="section-label">READY?</p>
 
-                <li>
-                    <h3>Request</h3>
-                    <p>Send a swap request for an item you like.</p>
-                </li>
+            <h2>
+                Give your clothes<br>
+                <em>a new loop.</em>
+            </h2>
 
-                <li>
-                    <h3>Swap</h3>
-                    <p>Agree on the exchange and complete the swap.</p>
-                </li>
-            </ol>
+            <div class="cta-actions">
+
+                <a href="register.html" class="primary-btn">
+                    Start a Loop
+                </a>
+
+                <a href="#browse" class="secondary-btn">
+                    Browse Clothes
+                </a>
+
+            </div>
+
         </section>
 
     </main>
 
 
-    <!-- Footer -->
-    <footer>
-        <h2>LoopWear</h2>
-        <p>Swap. Reuse. Repeat.</p>
-        <p>&copy; 2026 LoopWear. All rights reserved.</p>
-    </footer>
+    <!-- ================= FOOTER ================= -->
+
+<footer class="site-footer">
+
+    <div class="footer-content">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+
+            <div class="footer-logo">
+                LoopWear
+            </div>
+
+            <p class="footer-tagline">
+                Swap. Reuse. Repeat.<br>
+                Give good clothes another story.
+            </p>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <div>
+
+            <p class="footer-heading">
+                EXPLORE THE LOOP
+            </p>
+
+            <div class="footer-links">
+
+                <a href="index.html">Home</a>
+
+                <a href="#browse">Browse Clothes</a>
+
+                <a href="#how-it-works">How It Works</a>
+
+                <a href="#nearby">Nearby Loops</a>
+
+                <a href="dashboard.html">My Loop</a>
+
+                <a href="login.html">Login</a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer message -->
+        <div class="footer-message">
+
+            <p class="footer-heading">
+                THE LOOP CONTINUES
+            </p>
+
+            <p>
+                Good clothes<br>
+                keep moving.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Copyright -->
+    <div class="copyright">
+
+        <span class="footer-loop-mark">
+            © 2026 LOOPWEAR
+        </span>
+
+        <span>
+            CLOTHES IN CIRCULATION.
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- Existing JavaScript -->
+<script src="config.js"></script>
+    <script src="script.js"></script>
+<script src="notifications.js"></script>
+<script src="nearby.js"></script>
 
 </body>
 </html>

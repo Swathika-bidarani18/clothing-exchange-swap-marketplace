@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Panel - LoopWear</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f4ef;
+            color: #222;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 18px 30px;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .admin-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: #666;
+        }
+
+        /* STATS */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.06);
+        }
+
+        .stat-card span {
+            display: block;
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .stat-card strong {
+            font-size: 28px;
+        }
+
+        /* SECTIONS */
+
+        .admin-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 21px;
+        }
+
+        .refresh-btn {
+            border: none;
+            background: #111;
+            color: white;
+
+            padding: 9px 15px;
+            border-radius: 8px;
+
+            cursor: pointer;
+        }
+
+        /* TABLE */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        th,
+        td {
+            padding: 13px 10px;
+            text-align: left;
+
+            border-bottom:
+                1px solid #eee;
+
+            font-size: 14px;
+        }
+
+        th {
+            background: #f7f7f7;
+            font-size: 13px;
+        }
+
+        .delete-btn {
+            background: #b42318;
+            color: white;
+
+            border: none;
+            border-radius: 7px;
+
+            padding: 7px 11px;
+
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            opacity: 0.85;
+        }
+
+        .status {
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            background: #eee;
+
+            font-size: 12px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+        }
+
+        .loading {
+            color: #777;
+            padding: 15px 0;
+        }
+
+        .access-denied {
+            max-width: 600px;
+            margin: 100px auto;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .access-denied h1 {
+            margin-bottom: 10px;
+        }
+
+        .access-denied p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+
+            background: #111;
+            color: white;
+
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 900px) {
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 15px;
+            }
+
+            main {
+                margin-top: 25px;
+            }
+
+            .page-title h1 {
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="header-inner">
+
+        <div class="logo">
+            LoopWear
+        </div>
+
+        <div class="admin-label">
+            Admin Panel
+        </div>
+
+    </div>
+
+</header>
+
+
+<main id="adminContent">
+
+    <div class="page-title">
+
+        <h1>
+            LoopWear Admin
+        </h1>
+
+        <p>
+            Manage users, listings and swap activity.
+        </p>
+
+    </div>
+
+
+    <!-- ================================ -->
+    <!-- STATISTICS -->
+    <!-- ================================ -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <span>Total Users</span>
+            <strong id="totalUsers">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Total Listings</span>
+            <strong id="totalClothing">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Total Swaps</span>
+            <strong id="totalSwaps">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Successful Swaps</span>
+            <strong id="successfulSwaps">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Total Messages</span>
+            <strong id="totalMessages">0</strong>
+        </div>
+
+    </div>
+
+
+    <!-- ================================ -->
+    <!-- USERS -->
+    <!-- ================================ -->
+
+    <section class="admin-section">
+
+        <div class="section-header">
+
+            <h2>
+                Users
+            </h2>
+
+            <button
+                class="refresh-btn"
+                onclick="loadUsers()"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+        <div
+            id="usersLoading"
+            class="loading"
+        >
+            Loading users...
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Location</th>
+                        <th>Role</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="usersTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================ -->
+    <!-- CLOTHING -->
+    <!-- ================================ -->
+
+    <section class="admin-section">
+
+        <div class="section-header">
+
+            <h2>
+                Clothing Listings
+            </h2>
+
+            <button
+                class="refresh-btn"
+                onclick="loadClothing()"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+        <div
+            id="clothingLoading"
+            class="loading"
+        >
+            Loading listings...
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Condition</th>
+                        <th>Location</th>
+                        <th>Value</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="clothingTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================ -->
+    <!-- SWAPS -->
+    <!-- ================================ -->
+
+    <section class="admin-section">
+
+        <div class="section-header">
+
+            <h2>
+                Swap Requests
+            </h2>
+
+            <button
+                class="refresh-btn"
+                onclick="loadSwaps()"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+        <div
+            id="swapsLoading"
+            class="loading"
+        >
+            Loading swaps...
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Requester</th>
+                        <th>Owner</th>
+                        <th>Requested Item</th>
+                        <th>Offered Item</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="swapsTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script src="config.js"></script>
+    <script src="admin.js"></script>
+
+</body>
+
+</html>

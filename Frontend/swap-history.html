@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop Journey — LoopWear</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .history-section {
+            padding: 90px 7vw 110px;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .history-heading {
+            max-width: 760px;
+            margin-bottom: 55px;
+        }
+
+        .history-heading h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(3.4rem, 7vw, 6.8rem);
+            line-height: .9;
+            margin: 10px 0 24px;
+            color: var(--ink);
+        }
+
+        .history-heading h1 em {
+            font-weight: 400;
+        }
+
+        .history-heading p:not(.section-label) {
+            max-width: 600px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .history-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            margin-bottom: 18px;
+        }
+
+        .history-meta h2 {
+            margin: 0;
+            font-family: Georgia, serif;
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        .history-count {
+            color: var(--muted);
+            font-size: .9rem;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .history-list {
+            display: grid;
+            gap: 18px;
+        }
+
+        .history-card {
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: 25px;
+            align-items: center;
+            padding: 18px;
+            background: var(--cream);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+        }
+
+        .history-image {
+            width: 120px;
+            height: 140px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .history-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .history-direction {
+            margin: 0 0 7px;
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            color: var(--muted);
+        }
+
+        .history-card h3 {
+            margin: 0 0 8px;
+            font-family: Georgia, serif;
+            font-size: 1.7rem;
+            font-weight: 500;
+        }
+
+        .history-detail {
+            margin: 4px 0;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .history-date {
+            margin-top: 12px;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .history-status {
+            min-width: 105px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            text-align: center;
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .history-status.pending {
+            background: #fff3cf;
+            color: #775900;
+        }
+
+        .history-status.accepted {
+            background: #dff4e4;
+            color: #216b35;
+        }
+
+        .history-status.rejected {
+            background: #f9dddd;
+            color: #8a3030;
+        }
+
+        .history-empty,
+        .history-error {
+            padding: 55px 30px;
+            text-align: center;
+            background: var(--cream);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+        }
+
+        .history-empty h3,
+        .history-error h3 {
+            margin: 0 0 10px;
+            font-family: Georgia, serif;
+            font-size: 2rem;
+        }
+
+        .history-empty p,
+        .history-error p {
+            color: var(--muted);
+            max-width: 500px;
+            margin: 0 auto 25px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 700px) {
+            .history-section {
+                padding: 60px 20px 80px;
+            }
+
+            .history-card {
+                grid-template-columns: 90px 1fr;
+            }
+
+            .history-image {
+                width: 90px;
+                height: 110px;
+            }
+
+            .history-status {
+                grid-column: 2;
+                justify-self: start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="nav-container">
+        <a href="index.html" class="logo">Loop<span>Wear</span></a>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="index.html#browse">Browse Clothes</a>
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#nearby">Nearby Loops</a>
+            <a href="dashboard.html">My Loop</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="dashboard.html" class="login-link">Dashboard</a>
+            <a href="add-clothing.html" class="start-loop-btn">Add Clothing</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="history-section">
+        <div class="history-heading">
+            <p class="section-label">YOUR LOOP / TIMELINE</p>
+            <h1>Loop <em>Journey.</em></h1>
+            <p>
+                A record of the swap activity connected to your LoopWear account.
+                See what you requested, who requested your clothes, and the latest status.
+            </p>
+        </div>
+
+        <div class="history-meta">
+            <h2>Your swap activity</h2>
+            <span id="historyCount" class="history-count">Loading...</span>
+        </div>
+
+        <div id="historyList" class="history-list">
+            <div class="history-empty">
+                <h3>Loading your Loop journey...</h3>
+                <p>Please wait while we fetch your swap activity.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <div class="footer-logo">LoopWear</div>
+            <p class="footer-tagline">Swap. Reuse. Repeat.<br>Give good clothes another story.</p>
+        </div>
+        <div>
+            <p class="footer-heading">EXPLORE THE LOOP</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#browse">Browse Clothes</a>
+                <a href="swap-requests.html">Swap Requests</a>
+                <a href="dashboard.html">My Loop</a>
+            </div>
+        </div>
+        <div class="footer-message">
+            <p class="footer-heading">THE LOOP CONTINUES</p>
+            <p>Good clothes<br>keep moving.</p>
+        </div>
+    </div>
+    <div class="copyright">
+        <span class="footer-loop-mark">© 2026 LOOPWEAR</span>
+        <span>CLOTHES IN CIRCULATION.</span>
+    </div>
+</footer>
+
+<script src="config.js"></script>
+    <script src="swap-history.js"></script>
+</body>
+</html>

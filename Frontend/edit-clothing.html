@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Clothing — LoopWear</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ========================================
+           LOOPWEAR EDIT PAGE
+        ======================================== */
+
+        .edit-page {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(220, 255, 70, 0.12), transparent 28%),
+                radial-gradient(circle at 90% 90%, rgba(220, 255, 70, 0.08), transparent 25%),
+                #f4f1e9;
+            padding: 40px 7%;
+        }
+
+        .edit-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 45px;
+        }
+
+        .edit-logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: #171717;
+        }
+
+        .edit-back {
+            text-decoration: none;
+            color: #171717;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid #171717;
+            padding: 11px 18px;
+            border-radius: 100px;
+            transition: 0.2s ease;
+        }
+
+        .edit-back:hover {
+            background: #171717;
+            color: white;
+        }
+
+        .edit-layout {
+            max-width: 1180px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 55px;
+            align-items: start;
+        }
+
+        /* LEFT */
+
+        .edit-intro {
+            position: sticky;
+            top: 30px;
+        }
+
+        .edit-eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .edit-intro h1 {
+            margin: 0;
+            font-size: clamp(48px, 6vw, 78px);
+            line-height: 0.9;
+            letter-spacing: -4px;
+            color: #171717;
+        }
+
+        .edit-intro h1 span {
+            display: block;
+            color: #9aa900;
+        }
+
+        .edit-intro-text {
+            max-width: 360px;
+            margin-top: 28px;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .edit-note {
+            margin-top: 45px;
+            padding: 20px;
+            border-left: 3px solid #c9e21a;
+            background: rgba(255, 255, 255, 0.55);
+        }
+
+        .edit-note strong {
+            display: block;
+            margin-bottom: 6px;
+            color: #171717;
+        }
+
+        .edit-note p {
+            margin: 0;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* FORM CARD */
+
+        .edit-form-card {
+            background: #ffffff;
+            border: 1px solid #dedbd3;
+            border-radius: 28px;
+            padding: 38px;
+            box-shadow: 0 18px 60px rgba(20, 20, 20, 0.08);
+        }
+
+        .edit-form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .edit-form-header h2 {
+            margin: 0;
+            font-size: 25px;
+            letter-spacing: -0.8px;
+            color: #171717;
+        }
+
+        .edit-form-header p {
+            margin: 7px 0 0;
+            color: #888;
+            font-size: 13px;
+        }
+
+        .edit-number {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #c9e21a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .edit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .edit-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .edit-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .edit-field label {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .edit-field input,
+        .edit-field select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 15px 16px;
+            border: 1px solid #d9d6ce;
+            border-radius: 12px;
+            background: #faf9f6;
+            color: #171717;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .edit-field input:focus,
+        .edit-field select:focus {
+            border-color: #171717;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(201, 226, 26, 0.22);
+        }
+
+        .edit-field input::placeholder {
+            color: #aaa;
+        }
+
+        .value-wrap {
+            position: relative;
+        }
+
+        .value-symbol {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 800;
+            color: #555;
+            pointer-events: none;
+        }
+
+        .value-wrap input {
+            padding-left: 36px;
+        }
+
+        .edit-message {
+            min-height: 24px;
+            margin-top: 22px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .edit-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .edit-cancel,
+        .edit-save {
+            flex: 1;
+            border: none;
+            border-radius: 100px;
+            padding: 15px 20px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .edit-cancel {
+            background: #efede7;
+            color: #171717;
+        }
+
+        .edit-cancel:hover {
+            background: #dedbd3;
+        }
+
+        .edit-save {
+            background: #171717;
+            color: #ffffff;
+        }
+
+        .edit-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .edit-page {
+                padding: 25px 5%;
+            }
+
+            .edit-topbar {
+                margin-bottom: 35px;
+            }
+
+            .edit-layout {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .edit-intro {
+                position: static;
+            }
+
+            .edit-intro h1 {
+                font-size: 55px;
+                letter-spacing: -3px;
+            }
+
+            .edit-intro-text {
+                margin-top: 20px;
+            }
+
+            .edit-note {
+                display: none;
+            }
+
+            .edit-form-card {
+                padding: 25px 20px;
+                border-radius: 22px;
+            }
+
+            .edit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .edit-field.full {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .edit-logo {
+                font-size: 23px;
+            }
+
+            .edit-back {
+                padding: 9px 13px;
+                font-size: 12px;
+            }
+
+            .edit-intro h1 {
+                font-size: 45px;
+            }
+
+            .edit-buttons {
+                flex-direction: column-reverse;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="edit-page">
+
+        <!-- TOP BAR -->
+        <header class="edit-topbar">
+
+            <div class="edit-logo">
+                LoopWear<span>.</span>
+            </div>
+
+            <a href="my-clothes.html" class="edit-back">
+                ← Back to My Clothes
+            </a>
+
+        </header>
+
+
+        <section class="edit-layout">
+
+            <!-- LEFT SIDE -->
+            <div class="edit-intro">
+
+                <span class="edit-eyebrow">
+                    MY LOOP / EDIT ITEM
+                </span>
+
+                <h1>
+                    Refine
+                    <span>your loop.</span>
+                </h1>
+
+                <p class="edit-intro-text">
+                    Update your clothing details before sending
+                    it back into the LoopWear exchange.
+                </p>
+
+                <div class="edit-note">
+
+                    <strong>Keep it accurate.</strong>
+
+                    <p>
+                        Clear details help other members find
+                        the right match for their wardrobe.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORM -->
+            <div class="edit-form-card">
+
+                <div class="edit-form-header">
+
+                    <div>
+                        <h2>Item Details</h2>
+
+                        <p>
+                            Make changes to your listing
+                        </p>
+                    </div>
+
+                    <div class="edit-number">
+                        01
+                    </div>
+
+                </div>
+
+
+                <form id="editClothingForm">
+
+                    <div class="edit-grid">
+
+                        <div class="edit-field full">
+
+                            <label for="editClothingName">
+                                Clothing Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editClothingName"
+                                placeholder="e.g. Floral Summer Dress"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="edit-field full">
+
+                            <label for="editClothingImage">
+                                Image Path / URL
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editClothingImage"
+                                placeholder="images/dress.jpg"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="edit-field">
+
+                            <label for="editClothingCategory">
+                                Category
+                            </label>
+
+                            <select id="editClothingCategory" required>
+
+                                <option value="">
+                                    Select Category
+                                </option>
+
+                                <option value="Tops">
+                                    Tops
+                                </option>
+
+                                <option value="Bottoms">
+                                    Bottoms
+                                </option>
+
+                                <option value="Dresses">
+                                    Dresses
+                                </option>
+
+                                <option value="Outerwear">
+                                    Outerwear
+                                </option>
+
+                                <option value="Shoes">
+                                    Shoes
+                                </option>
+
+                                <option value="Accessories">
+                                    Accessories
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="edit-field">
+
+                            <label for="editClothingSize">
+                                Size
+                            </label>
+
+                            <select id="editClothingSize" required>
+
+                                <option value="">
+                                    Select Size
+                                </option>
+
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="edit-field">
+
+                            <label for="editClothingCondition">
+                                Condition
+                            </label>
+
+                            <select id="editClothingCondition" required>
+
+                                <option value="">
+                                    Select Condition
+                                </option>
+
+                                <option value="New">
+                                    New
+                                </option>
+
+                                <option value="Like New">
+                                    Like New
+                                </option>
+
+                                <option value="Good">
+                                    Good
+                                </option>
+
+                                <option value="Fair">
+                                    Fair
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="edit-field">
+
+                            <label for="editClothingBrand">
+                                Brand
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editClothingBrand"
+                                placeholder="e.g. Zara"
+                            >
+
+                        </div>
+
+
+                        <div class="edit-field">
+
+                            <label for="editClothingLocation">
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editClothingLocation"
+                                placeholder="e.g. Hyderabad"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="edit-field">
+
+                            <label for="editClothingValue">
+                                Swap Value
+                            </label>
+
+                            <div class="value-wrap">
+
+                                <span class="value-symbol">₹</span>
+
+                                <input
+                                    type="number"
+                                    id="editClothingValue"
+                                    min="1"
+                                    placeholder="734"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="editClothingMessage"
+                        class="edit-message"
+                    ></div>
+
+
+                    <div class="edit-buttons">
+
+                        <button
+                            type="button"
+                            id="cancelEditClothing"
+                            class="edit-cancel"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="edit-save"
+                        >
+                            Save Changes →
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
